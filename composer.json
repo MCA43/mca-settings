@@ -1,0 +1,56 @@
+{
+    "name": "mca/settings",
+    "description": "Application settings key-value store with admin UI for Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel", "mca", "settings", "configuration"],
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "suggest": {
+        "mca/permission": "Root access middleware for settings admin UI",
+        "mca/hub": "MCA package hub integration",
+        "mca/address": "City / district / neighborhood select UI in contact settings"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mca\\Settings\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mca\\Settings\\SettingsServiceProvider"
+            ]
+        },
+        "mca": {
+            "slug": "settings",
+            "title": {
+                "en": "Settings",
+                "tr": "Ayarlar"
+            },
+            "description": {
+                "en": "Application settings key-value store with admin UI.",
+                "tr": "Uygulama ayarları ve yönetim arayüzü."
+            },
+            "route": "mca.settings.index",
+            "github": "https://github.com/MCA43/mca-settings",
+            "icon": "cog",
+            "order": 20,
+            "frameworks": ["laravel13"]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
