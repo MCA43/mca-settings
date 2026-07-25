@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.1] - 2026-07-26
+
+### Changed
+- Definition `label` / `description` from host config override DB metadata in the admin UI
+- `image_upload` fields use compact grid tiles (not full-width text rows)
+
 ## [0.3.0] - 2026-07-26
 
 ### Added

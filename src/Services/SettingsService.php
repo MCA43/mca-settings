@@ -77,7 +77,12 @@ final class SettingsService
             $item['widget'] = $definition['widget'];
         }
 
-        if (isset($definition['description']) && empty($item['description'])) {
+        // Config definitions are the UI source of truth for label/description.
+        if (isset($definition['label'])) {
+            $item['label'] = $definition['label'];
+        }
+
+        if (isset($definition['description'])) {
             $item['description'] = $definition['description'];
         }
 

@@ -60,10 +60,12 @@
                                 $value = app(\Mca\Settings\Services\SettingsService::class)->get($key);
                                 $label = \Mca\Settings\Support\McaSettingsView::label($item['label'] ?? $key);
                                 $description = \Mca\Settings\Support\McaSettingsView::label($item['description'] ?? '');
-                                $wide = in_array($type, ['text', 'boolean', 'json'], true) || $widget !== '';
+                                $wide = in_array($type, ['text', 'boolean', 'json'], true)
+                                    || ($widget !== '' && $widget !== 'image_upload');
+                                $uploadField = $widget === 'image_upload';
                             @endphp
 
-                            <div class="mca-perm-field mca-sett-field {{ $wide ? 'mca-sett-field--wide' : '' }}">
+                            <div class="mca-perm-field mca-sett-field {{ $wide ? 'mca-sett-field--wide' : '' }} {{ $uploadField ? 'mca-sett-field--upload' : '' }}">
                                 @if (! in_array($widget, ['social_links', 'contact_phones', 'contact_emails', 'contact_address', 'contact_map'], true))
                                     <label class="mca-perm-label" for="sett-{{ md5($key) }}">
                                         {{ $label }}
@@ -72,7 +74,7 @@
                                         @endif
                                     </label>
 
-                                    @if ($description !== '')
+                                    @if ($description !== '' && $widget !== 'image_upload')
                                         <p class="mca-perm-help">{{ $description }}</p>
                                     @endif
                                 @endif

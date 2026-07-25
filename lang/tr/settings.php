@@ -103,7 +103,7 @@ return [
         'role_select_hint' => 'mca/permission rollerinden seçilir; değer olarak role id kaydedilir.',
         'role_input_placeholder' => 'editor veya 3',
         'role_input_hint' => 'mca/permission yüklü değil — rol slug veya id yazın.',
-        'image_upload_hint' => 'Yeni dosya seçilmezse mevcut görsel korunur. Dosya public/uploads altına kaydedilir.',
+        'image_upload_hint' => 'Yeni dosya seçilmezse mevcut görsel korunur.',
         'image_upload_fallback_hint' => 'mca/uploads yüklü değil — public/ altında göreli yol veya tam URL yazın.',
     ],
     'modal' => [

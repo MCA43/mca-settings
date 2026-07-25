@@ -1,6 +1,7 @@
 @php
     $fieldId = 'sett-'.md5($key);
     $stored = old('settings.'.$key, is_string($value) ? $value : '');
+    $aspect = str_contains((string) $key, 'favicon') ? 'square' : 'wide';
 @endphp
 
 @if (\Mca\Settings\Support\ImageUploadField::isAvailable())
@@ -13,6 +14,7 @@
         :value="is_string($stored) && $stored !== '' ? $stored : null"
         :preset="$key"
         :preserve="false"
+        :aspect="$aspect"
     />
     <p class="mca-perm-help">{{ mca_sett('form.image_upload_hint') }}</p>
 @else
