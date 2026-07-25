@@ -103,6 +103,8 @@ return [
         'role_select_hint' => 'Picked from mca/permission roles; stores role id.',
         'role_input_placeholder' => 'editor or 3',
         'role_input_hint' => 'mca/permission not installed — enter role slug or id.',
+        'image_upload_hint' => 'Leave empty to keep the current image. Files are stored under public/uploads.',
+        'image_upload_fallback_hint' => 'mca/uploads is not installed — enter a public-relative path or full URL.',
     ],
     'modal' => [
         'ok' => 'OK',

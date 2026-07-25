@@ -9,6 +9,7 @@ use Mca\Settings\Support\ContactAddressField;
 use Mca\Settings\Support\ContactEmailsField;
 use Mca\Settings\Support\ContactMapField;
 use Mca\Settings\Support\ContactPhonesField;
+use Mca\Settings\Support\ImageUploadField;
 use Mca\Settings\Support\PermissionRoleField;
 use Mca\Settings\Support\SocialLinksField;
 
@@ -87,6 +88,13 @@ class UpdateSettingsRequest extends FormRequest
 
             if ($key === ContactMapField::LNG_KEY) {
                 $rules[$ruleKey] = ['nullable', 'numeric', 'between:-180,180'];
+
+                continue;
+            }
+
+            if ($widget === 'image_upload') {
+                $rules[$ruleKey] = ImageUploadField::pathRules();
+                $rules['uploads.'.str_replace('.', '\.', $key)] = ImageUploadField::fileRules();
 
                 continue;
             }

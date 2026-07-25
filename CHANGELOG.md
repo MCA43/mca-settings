@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0] - 2026-07-26
+
+### Added
+- `image_upload` widget (soft-dep on `mca/uploads`): file picker + preview for branding paths
+- Multipart settings form (`enctype="multipart/form-data"`)
+- `ImageUploadField` — validates `uploads[setting.key]`, applies `mca_upload()->replace()` on save
+- EN/TR hints for image upload and text-path fallback when uploads is missing
+
+### Notes
+- Host definitions: set `'widget' => 'image_upload'` on keys such as `branding.favicon`, `branding.dark_logo`
+- Preset name = setting key (must match `config/upload.php` presets)
+
 ## [0.2.0] - 2026-06-28
 
 ### Added

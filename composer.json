@@ -15,7 +15,8 @@
     "suggest": {
         "mca/permission": "Root access middleware for settings admin UI",
         "mca/hub": "MCA package hub integration",
-        "mca/address": "City / district / neighborhood select UI in contact settings"
+        "mca/address": "City / district / neighborhood select UI in contact settings",
+        "mca/uploads": "image_upload widget for branding favicon and logos"
     },
     "autoload": {
         "psr-4": {

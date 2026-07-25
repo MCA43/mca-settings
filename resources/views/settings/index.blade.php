@@ -39,7 +39,10 @@
             @if ($items === [])
                 <p class="mca-perm-help mca-sett-empty">{{ mca_sett('empty') }}</p>
             @else
-                <form method="post" action="{{ route('mca.settings.update') }}" class="mca-sett-form">
+                <form method="post"
+                      action="{{ route('mca.settings.update') }}"
+                      class="mca-sett-form"
+                      enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="group" value="{{ $activeGroup }}">
@@ -92,6 +95,11 @@
                                     @include('mca-settings::partials.fields.contact-map')
                                 @elseif ($widget === 'permission_role')
                                     @include('mca-settings::partials.fields.permission-role', [
+                                        'key' => $key,
+                                        'value' => $value,
+                                    ])
+                                @elseif ($widget === 'image_upload')
+                                    @include('mca-settings::partials.fields.image-upload', [
                                         'key' => $key,
                                         'value' => $value,
                                     ])

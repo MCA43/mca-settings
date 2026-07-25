@@ -7,6 +7,7 @@ use Mca\Settings\Http\Requests\UpdateSettingsRequest;
 use Mca\Settings\Services\SettingsService;
 use Mca\Settings\Support\ContactEmailsField;
 use Mca\Settings\Support\ContactPhonesField;
+use Mca\Settings\Support\ImageUploadField;
 use Mca\Settings\Support\McaSettingsView;
 use Mca\Settings\Support\SocialLinksField;
 
@@ -53,6 +54,8 @@ class SettingsController
         if (array_key_exists(ContactEmailsField::KEY, $filtered)) {
             $filtered[ContactEmailsField::KEY] = ContactEmailsField::normalize($filtered[ContactEmailsField::KEY]);
         }
+
+        $filtered = ImageUploadField::applyUploads($request, $filtered, $this->settings->forGroup($group));
 
         $this->settings->updateMany($filtered);
 
