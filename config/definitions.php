@@ -99,33 +99,57 @@ return [
     'branding' => [
         'branding.favicon' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
-            'label' => $label('Favicon path', 'Favicon dosya yolu'),
-            'description' => $label('Relative path under public/.', 'public/ altında göreli yol.'),
+            'label' => $label('Favicon', 'Favicon'),
+            'description' => $label(
+                'Upload or keep the current favicon.',
+                'Yükleyin veya mevcut favicon’u koruyun.'
+            ),
             'sort' => 10,
         ],
         'branding.light_logo' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
             'label' => $label('Light logo', 'Açık tema logo'),
+            'description' => $label(
+                'Upload or keep the current light logo.',
+                'Yükleyin veya mevcut açık tema logosunu koruyun.'
+            ),
             'sort' => 20,
         ],
         'branding.light_logo_sm' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
             'label' => $label('Light logo (small)', 'Açık tema logo (küçük)'),
+            'description' => $label(
+                'Upload or keep the current small light logo.',
+                'Yükleyin veya mevcut küçük açık tema logosunu koruyun.'
+            ),
             'sort' => 30,
         ],
         'branding.dark_logo' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
             'label' => $label('Dark logo', 'Koyu tema logo'),
+            'description' => $label(
+                'Upload or keep the current dark logo.',
+                'Yükleyin veya mevcut koyu tema logosunu koruyun.'
+            ),
             'sort' => 40,
         ],
         'branding.dark_logo_sm' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
             'label' => $label('Dark logo (small)', 'Koyu tema logo (küçük)'),
+            'description' => $label(
+                'Upload or keep the current small dark logo.',
+                'Yükleyin veya mevcut küçük koyu tema logosunu koruyun.'
+            ),
             'sort' => 50,
         ],
     ],

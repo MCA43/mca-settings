@@ -15,7 +15,7 @@
 - EN/TR hints for image upload and text-path fallback when uploads is missing
 
 ### Notes
-- Host definitions: set `'widget' => 'image_upload'` on keys such as `branding.favicon`, `branding.dark_logo`
+- Host / package definitions ship with `'widget' => 'image_upload'` on branding keys (`branding.favicon`, logos)
 - Preset name = setting key (must match `config/upload.php` presets)
 
 ## [0.2.0] - 2026-06-28
