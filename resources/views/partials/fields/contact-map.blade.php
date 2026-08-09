@@ -25,7 +25,7 @@
         <label class="mca-perm-label" for="sett-map-embed">{{ mca_sett('map.embed') }}</label>
         <textarea id="sett-map-embed"
                   name="settings[{{ ContactMapField::EMBED_KEY }}]"
-                  class="mca-perm-input mca-sett-textarea"
+                  class="mca-perm-input mca-sett-textarea mca-perm-mono mca-ui-input--lg"
                   rows="4"
                   placeholder="<iframe ...></iframe>">{{ $embed }}</textarea>
         <p class="mca-perm-help">{{ mca_sett('map.embed_hint') }}</p>

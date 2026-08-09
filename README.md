@@ -13,6 +13,7 @@ Application settings for Laravel: database key-value store with root-only admin 
 - **Helper API** — `mca_setting()`, `mca_setting_bool()`
 - **Admin UI** — `/mca/settings` group tabs, Active/Inactive toggles
 - **Maintenance mode** — `maintenance.*` + optional middleware (vibromek model)
+- **Force HTTPS** — `security.force_https` (default off) + web middleware when enabled
 - **Hub integration** — Settings card on `/mca` dashboard
 
 ## Excluded (separate packages)
@@ -47,9 +48,12 @@ php artisan vendor:publish --tag=mca-permission-assets --force
 MCA_SETTINGS_ENABLED=true
 MCA_SETTINGS_USE_PERMISSION_ROOT=true
 MCA_SETTINGS_MAINTENANCE_MIDDLEWARE=false
+MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE=true
 ```
 
 Set `MCA_SETTINGS_MAINTENANCE_MIDDLEWARE=true` to return 503 on the public site while `/mca/*` and auth routes stay open.
+
+Force HTTPS is controlled in **Security** (`security.force_https`, default off). The middleware is on the `web` stack by default (`MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE`); when the toggle is off it is a no-op. Behind TLS termination, configure Laravel `TrustProxies` first to avoid redirect loops.
 
 After adding new definitions:
 

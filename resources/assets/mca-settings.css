@@ -84,11 +84,8 @@
 }
 
 .mca-sett-textarea {
-    height: auto;
-    min-height: 6rem;
-    padding-top: 0.65rem;
-    padding-bottom: 0.65rem;
-    resize: vertical;
+    /* Shared textarea look comes from mca-ui; keep class for compatibility */
+    min-height: 6.5rem;
 }
 
 .mca-sett-empty {

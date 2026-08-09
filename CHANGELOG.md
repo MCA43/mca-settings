@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2] - 2026-08-09
+
+### Added
+- `security.force_https` boolean (default off) in Security group
+- `ForceHttps` middleware (`mca.settings.force_https`) — 301 redirect + `URL::forceScheme('https')` when enabled
+- Config/env `MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE` (default true) to attach middleware to the `web` stack
+
 ## [0.3.1] - 2026-07-26
 
 ### Changed

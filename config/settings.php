@@ -57,6 +57,8 @@ return [
 
     'middleware' => [
         'register_maintenance' => env('MCA_SETTINGS_MAINTENANCE_MIDDLEWARE', false),
+        // Stack’te kayıtlı olsun; davranış paneldeki security.force_https ile kontrol edilir (varsayılan kapalı).
+        'register_force_https' => env('MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE', true),
     ],
 
     /*

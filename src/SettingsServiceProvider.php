@@ -8,6 +8,7 @@ use Mca\Settings\Console\InstallSettingsCommand;
 use Mca\Settings\Console\SyncSettingsCommand;
 use Mca\Settings\Http\Middleware\EnsureMaintenanceMode;
 use Mca\Settings\Http\Middleware\EnsureMcaSettingsRoot;
+use Mca\Settings\Http\Middleware\ForceHttps;
 use Mca\Settings\Http\Middleware\SetMcaSettingsLocale;
 use Mca\Settings\Services\SettingsService;
 
@@ -33,6 +34,7 @@ class SettingsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'mca-settings');
         $this->registerRoutes();
         $this->registerMaintenanceMiddleware();
+        $this->registerForceHttpsMiddleware();
         $this->registerHub();
 
         if ($this->app->runningInConsole()) {
@@ -81,6 +83,7 @@ class SettingsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('mca.settings.root', EnsureMcaSettingsRoot::class);
         $router->aliasMiddleware('mca.settings.locale', SetMcaSettingsLocale::class);
         $router->aliasMiddleware('mca.settings.maintenance', EnsureMaintenanceMode::class);
+        $router->aliasMiddleware('mca.settings.force_https', ForceHttps::class);
     }
 
     protected function registerRoutes(): void
@@ -102,6 +105,19 @@ class SettingsServiceProvider extends ServiceProvider
             /** @var Router $router */
             $router = $this->app['router'];
             $router->pushMiddlewareToGroup('web', EnsureMaintenanceMode::class);
+        });
+    }
+
+    protected function registerForceHttpsMiddleware(): void
+    {
+        if (! config('settings.middleware.register_force_https', true)) {
+            return;
+        }
+
+        $this->app->booted(function () {
+            /** @var Router $router */
+            $router = $this->app['router'];
+            $router->pushMiddlewareToGroup('web', ForceHttps::class);
         });
     }
 }

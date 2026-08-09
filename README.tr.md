@@ -13,6 +13,7 @@ Laravel için uygulama ayarları: DB tabanlı key-value deposu ve root-only yön
 - **Helper API** — `mca_setting()`, `mca_setting_bool()`
 - **Admin UI** — `/mca/settings` grup sekmeleri, Aktif/Pasif toggle
 - **Bakım modu** — `maintenance.*` + opsiyonel middleware (vibromek modeli)
+- **HTTPS zorla** — `security.force_https` (varsayılan kapalı) + açıkken web middleware
 - **Hub entegrasyonu** — `/mca` panelinde Ayarlar kartı
 
 ## Hariç tutulanlar (ayrı paket)
@@ -47,9 +48,12 @@ php artisan vendor:publish --tag=mca-permission-assets --force
 MCA_SETTINGS_ENABLED=true
 MCA_SETTINGS_USE_PERMISSION_ROOT=true
 MCA_SETTINGS_MAINTENANCE_MIDDLEWARE=false
+MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE=true
 ```
 
 Bakım modu middleware'i açmak için `MCA_SETTINGS_MAINTENANCE_MIDDLEWARE=true` — public site 503 döner, `/mca/*` ve auth rotaları açık kalır.
+
+HTTPS zorlama **Güvenlik** sekmesinden (`security.force_https`, varsayılan kapalı) yönetilir. Middleware varsayılan olarak `web` grubuna eklenir (`MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE`); toggle kapalıyken işlem yapmaz. TLS sonlandırma (proxy/CDN) kullanıyorsanız yönlendirme döngüsünü önlemek için önce Laravel `TrustProxies` ayarlayın.
 
 Yeni tanımlar eklendikten sonra:
 

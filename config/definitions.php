@@ -73,6 +73,16 @@ return [
             'description' => $label('Empty = all domains.', 'Boş = tüm domainler.'),
             'sort' => 40,
         ],
+        'security.force_https' => [
+            'type' => 'boolean',
+            'default' => false,
+            'label' => $label('Force HTTPS', 'HTTPS zorla'),
+            'description' => $label(
+                'Redirect HTTP to HTTPS and force https:// in generated URLs. Behind a proxy, configure TrustProxies first.',
+                'HTTP isteklerini HTTPS’e yönlendirir ve üretilen URL’lerde https:// zorlar. Proxy arkasında önce TrustProxies ayarlayın.'
+            ),
+            'sort' => 50,
+        ],
     ],
 
     'locale' => [
