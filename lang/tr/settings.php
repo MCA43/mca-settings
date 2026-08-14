@@ -22,6 +22,7 @@ return [
         'social' => 'Sosyal Medya',
         'integrations' => 'Entegrasyon',
         'seo' => 'SEO',
+        'document_ocr' => 'Belge OCR',
         'maintenance' => 'Bakım',
     ],
     'social' => [
@@ -105,6 +106,7 @@ return [
         'role_input_hint' => 'mca/permission yüklü değil — rol slug veya id yazın.',
         'image_upload_hint' => 'Yeni dosya seçilmezse mevcut görsel korunur.',
         'image_upload_fallback_hint' => 'mca/uploads yüklü değil — public/ altında göreli yol veya tam URL yazın.',
+        'password_keep' => 'Mevcut değeri korumak için boş bırakın.',
     ],
     'modal' => [
         'ok' => 'Tamam',

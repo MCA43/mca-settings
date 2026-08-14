@@ -86,6 +86,10 @@ final class SettingsService
             $item['description'] = $definition['description'];
         }
 
+        if (isset($definition['options']) && is_array($definition['options'])) {
+            $item['options'] = $definition['options'];
+        }
+
         return $item;
     }
 

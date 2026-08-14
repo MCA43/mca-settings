@@ -57,6 +57,18 @@ class SettingsController
 
         $filtered = ImageUploadField::applyUploads($request, $filtered, $this->settings->forGroup($group));
 
+        foreach ($filtered as $key => $value) {
+            $definition = $this->settings->definitionFor((string) $key) ?? [];
+            if (($definition['widget'] ?? '') !== 'password') {
+                continue;
+            }
+
+            $trimmed = is_string($value) ? trim($value) : '';
+            if ($trimmed === '' || $trimmed === '••••••••') {
+                unset($filtered[$key]);
+            }
+        }
+
         $this->settings->updateMany($filtered);
 
         return redirect()

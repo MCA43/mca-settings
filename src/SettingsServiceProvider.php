@@ -74,6 +74,10 @@ class SettingsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'mca-settings-migrations');
+
+        $this->publishes([
+            __DIR__.'/../lang' => lang_path('vendor/mca-settings'),
+        ], 'mca-settings-lang');
     }
 
     protected function registerMiddleware(): void

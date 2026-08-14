@@ -107,6 +107,26 @@ if (! function_exists('mca_sett')) {
     /** @param  array<string, string|int>  $replace */
     function mca_sett(string $key, array $replace = []): string
     {
-        return (string) __('mca-settings::settings.'.$key, $replace);
+        $line = 'mca-settings::settings.'.$key;
+
+        if (! trans()->has($line)) {
+            return $key;
+        }
+
+        return (string) __($line, $replace);
+    }
+}
+
+if (! function_exists('mca_sett_group')) {
+    function mca_sett_group(string $group): string
+    {
+        $key = 'groups.'.$group;
+        $translated = mca_sett($key);
+
+        if ($translated !== $key) {
+            return $translated;
+        }
+
+        return str_replace(['_', '-'], ' ', ucfirst($group));
     }
 }

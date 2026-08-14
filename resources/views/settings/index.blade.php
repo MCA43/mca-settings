@@ -1,9 +1,7 @@
 @extends('mca-settings::layouts.app')
 
 @php
-    $groupLabel = mca_sett('groups.'.$activeGroup) !== 'groups.'.$activeGroup
-        ? mca_sett('groups.'.$activeGroup)
-        : ucfirst($activeGroup);
+    $groupLabel = mca_sett_group($activeGroup);
     $showKeys = (bool) config('settings.ui.show_keys', false);
 @endphp
 
@@ -22,14 +20,9 @@
             <div class="mca-perm-card__header">{{ mca_sett('nav.groups') }}</div>
             <nav class="mca-sett-sidebar__nav">
                 @foreach ($groups as $group)
-                    @php
-                        $label = mca_sett('groups.'.$group) !== 'groups.'.$group
-                            ? mca_sett('groups.'.$group)
-                            : ucfirst($group);
-                    @endphp
                     <a href="{{ route('mca.settings.index', ['group' => $group]) }}"
                        class="mca-sett-sidebar__link {{ $activeGroup === $group ? 'mca-sett-sidebar__link--active' : '' }}">
-                        {{ $label }}
+                        {{ mca_sett_group($group) }}
                     </a>
                 @endforeach
             </nav>
@@ -63,6 +56,8 @@
                                 $wide = in_array($type, ['text', 'boolean', 'json'], true)
                                     || ($widget !== '' && $widget !== 'image_upload');
                                 $uploadField = $widget === 'image_upload';
+                                $options = $item['options'] ?? ($definition['options'] ?? []);
+                                $passwordSet = $widget === 'password' && is_string($value) && trim($value) !== '';
                             @endphp
 
                             <div class="mca-perm-field mca-sett-field {{ $wide ? 'mca-sett-field--wide' : '' }} {{ $uploadField ? 'mca-sett-field--upload' : '' }}">
@@ -127,6 +122,33 @@
                                               name="settings[{{ $key }}]"
                                               class="mca-perm-input mca-sett-textarea"
                                               rows="4">{{ old('settings.'.$key, $value) }}</textarea>
+                                @elseif ($widget === 'select' && is_array($options) && $options !== [])
+                                    <select id="sett-{{ md5($key) }}"
+                                            name="settings[{{ $key }}]"
+                                            class="mca-perm-input">
+                                        @foreach ($options as $optionValue => $optionLabel)
+                                            @php
+                                                $optLabel = is_array($optionLabel)
+                                                    ? \Mca\Settings\Support\McaSettingsView::label($optionLabel)
+                                                    : (string) $optionLabel;
+                                            @endphp
+                                            <option value="{{ $optionValue }}"
+                                                @selected((string) old('settings.'.$key, $value) === (string) $optionValue)>
+                                                {{ $optLabel }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @elseif ($widget === 'password')
+                                    <input type="password"
+                                           id="sett-{{ md5($key) }}"
+                                           name="settings[{{ $key }}]"
+                                           class="mca-perm-input"
+                                           autocomplete="new-password"
+                                           value=""
+                                           placeholder="{{ $passwordSet ? '••••••••' : '' }}">
+                                    @if ($passwordSet)
+                                        <p class="mca-perm-help">{{ mca_sett('form.password_keep') }}</p>
+                                    @endif
                                 @else
                                     <input type="{{ $type === 'integer' ? 'number' : 'text' }}"
                                            id="sett-{{ md5($key) }}"

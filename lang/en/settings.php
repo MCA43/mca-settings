@@ -22,6 +22,7 @@ return [
         'social' => 'Social',
         'integrations' => 'Integrations',
         'seo' => 'SEO',
+        'document_ocr' => 'Document OCR',
         'maintenance' => 'Maintenance',
     ],
     'social' => [
@@ -105,6 +106,7 @@ return [
         'role_input_hint' => 'mca/permission not installed — enter role slug or id.',
         'image_upload_hint' => 'Leave empty to keep the current image.',
         'image_upload_fallback_hint' => 'mca/uploads is not installed — enter a public-relative path or full URL.',
+        'password_keep' => 'Leave blank to keep the current value.',
     ],
     'modal' => [
         'ok' => 'OK',
