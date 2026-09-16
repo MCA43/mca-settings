@@ -14,10 +14,12 @@ return [
         'back_mca' => 'MCA Hub',
     ],
     'groups' => [
+        'company' => 'Firma',
         'general' => 'Genel',
         'security' => 'Güvenlik',
         'locale' => 'Yerel',
         'branding' => 'Marka',
+        'uploads' => 'Yüklemeler',
         'contact' => 'İletişim',
         'social' => 'Sosyal Medya',
         'integrations' => 'Entegrasyon',
@@ -121,6 +123,8 @@ return [
     ],
     'errors' => [
         'root_only' => 'Bu alan yalnızca root kullanıcı içindir.',
+        'forbidden' => 'Bu ayarlara erişim yetkiniz yok.',
+        'group_forbidden' => 'Bu ayar grubu için yetkiniz yok.',
     ],
     'empty' => 'Bu grupta henüz ayar yok.',
     'maintenance' => [

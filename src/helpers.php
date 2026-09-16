@@ -107,13 +107,33 @@ if (! function_exists('mca_sett')) {
     /** @param  array<string, string|int>  $replace */
     function mca_sett(string $key, array $replace = []): string
     {
-        $line = 'mca-settings::settings.'.$key;
+        $full = 'mca-settings::settings.'.$key;
+        $translated = (string) __($full, $replace);
 
-        if (! trans()->has($line)) {
+        // Laravel returns the namespaced key when the line is missing.
+        if ($translated !== $full) {
+            return $translated;
+        }
+
+        // Fallback: read via FileLoader directly. Needed when Lang::addLines()
+        // (or similar) marked the group "loaded" with only a partial set of keys,
+        // which blocks loadTranslationsFrom() package files from being applied.
+        $locale = app()->getLocale();
+        $lines = app('translator')->getLoader()->load($locale, 'settings', 'mca-settings');
+        if ($lines === [] && $locale !== 'en') {
+            $lines = app('translator')->getLoader()->load('en', 'settings', 'mca-settings');
+        }
+
+        $value = data_get($lines, $key);
+        if (! is_string($value) || $value === '') {
             return $key;
         }
 
-        return (string) __($line, $replace);
+        foreach ($replace as $search => $replacement) {
+            $value = str_replace(':'.$search, (string) $replacement, $value);
+        }
+
+        return $value;
     }
 }
 

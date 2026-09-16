@@ -14,10 +14,12 @@ return [
         'back_mca' => 'MCA Hub',
     ],
     'groups' => [
+        'company' => 'Company',
         'general' => 'General',
         'security' => 'Security',
         'locale' => 'Locale',
         'branding' => 'Branding',
+        'uploads' => 'Uploads',
         'contact' => 'Contact',
         'social' => 'Social',
         'integrations' => 'Integrations',
@@ -121,6 +123,8 @@ return [
     ],
     'errors' => [
         'root_only' => 'This area is for root users only.',
+        'forbidden' => 'You do not have access to these settings.',
+        'group_forbidden' => 'You do not have access to this settings group.',
     ],
     'empty' => 'No settings in this group yet.',
     'maintenance' => [
