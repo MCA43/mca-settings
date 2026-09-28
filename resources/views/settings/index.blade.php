@@ -1,11 +1,7 @@
 @extends(\Mca\Settings\Support\McaSettingsView::layout())
 
 @php
-<<<<<<< HEAD
     $groupLabel = mca_sett_group($activeGroup);
-=======
-    $groupLabel = \Mca\Settings\Support\McaSettingsView::groupLabel((string) $activeGroup);
->>>>>>> dfde755 (Fix maintenance middleware for TR auth paths and host themed view.)
     $showKeys = (bool) config('settings.ui.show_keys', false);
 @endphp
 
@@ -24,12 +20,6 @@
             <div class="mca-perm-card__header">{{ mca_sett('nav.groups') }}</div>
             <nav class="mca-sett-sidebar__nav">
                 @foreach ($groups as $group)
-<<<<<<< HEAD
-=======
-                    @php
-                        $label = \Mca\Settings\Support\McaSettingsView::groupLabel((string) $group);
-                    @endphp
->>>>>>> dfde755 (Fix maintenance middleware for TR auth paths and host themed view.)
                     <a href="{{ route('mca.settings.index', ['group' => $group]) }}"
                        class="mca-sett-sidebar__link {{ $activeGroup === $group ? 'mca-sett-sidebar__link--active' : '' }}">
                         {{ mca_sett_group($group) }}
