@@ -352,14 +352,21 @@ return [
         ],
         'maintenance.image' => [
             'type' => 'string',
+            'widget' => 'image_upload',
             'default' => '',
-            'label' => $label('Maintenance image path', 'Bakım görseli yolu'),
+            'label' => $label('Maintenance image', 'Bakım görseli'),
+            'description' => $label(
+                'Upload or keep the current maintenance image.',
+                'Yükleyin veya mevcut bakım görselini koruyun.'
+            ),
             'sort' => 40,
         ],
         'maintenance.end_date' => [
             'type' => 'string',
+            'widget' => 'datetime',
             'default' => '',
-            'label' => $label('Expected end (Y-m-d H:i)', 'Tahmini bitiş (Y-m-d H:i)'),
+            'label' => $label('Expected end', 'Tahmini bitiş'),
+            'description' => $label('Shown on the public maintenance page.', 'Kurumsal bakım sayfasında gösterilir.'),
             'sort' => 50,
         ],
     ],

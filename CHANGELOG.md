@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.3] - 2026-09-15
+
+### Added
+- `groups.company` EN/TR labels for host apps that define a company settings group
+
+### Fixed
+- Missing translation keys no longer render as `mca-settings::settings.*`; group titles fall back to `ucfirst($group)`
+
 ## [0.3.2] - 2026-08-09
 
 ### Added

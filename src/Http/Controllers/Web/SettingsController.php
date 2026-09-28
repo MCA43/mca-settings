@@ -3,10 +3,12 @@
 namespace Mca\Settings\Http\Controllers\Web;
 
 use Illuminate\Http\RedirectResponse;
+use Mca\Permission\Services\PackageAccessService;
 use Mca\Settings\Http\Requests\UpdateSettingsRequest;
 use Mca\Settings\Services\SettingsService;
 use Mca\Settings\Support\ContactEmailsField;
 use Mca\Settings\Support\ContactPhonesField;
+use Mca\Settings\Support\DatetimeField;
 use Mca\Settings\Support\ImageUploadField;
 use Mca\Settings\Support\McaSettingsView;
 use Mca\Settings\Support\SocialLinksField;
@@ -20,10 +22,33 @@ class SettingsController
     public function index()
     {
         $groups = $this->settings->groups();
-        $activeGroup = request('group', $groups[0] ?? 'general');
+        $user = request()->user();
+
+        if (class_exists(PackageAccessService::class)) {
+            $groups = app(PackageAccessService::class)->filterSettingsGroups($user, $groups);
+        }
+
+        $activeGroup = (string) request('group', $groups[0] ?? 'general');
+
+        if ($groups === []) {
+            return McaSettingsView::render('settings.index', [
+                'groups' => [],
+                'activeGroup' => '',
+                'items' => [],
+            ]);
+        }
+
+        if (request()->filled('group') && ! in_array($activeGroup, $groups, true)) {
+            abort(403, mca_sett('errors.group_forbidden'));
+        }
 
         if (! in_array($activeGroup, $groups, true)) {
-            $activeGroup = $groups[0] ?? 'general';
+            $activeGroup = $groups[0];
+        }
+
+        if (class_exists(PackageAccessService::class)
+            && ! app(PackageAccessService::class)->allowsSettingsGroup($user, $activeGroup)) {
+            abort(403, mca_sett('errors.group_forbidden'));
         }
 
         $items = $this->settings->forGroup($activeGroup);
@@ -38,9 +63,17 @@ class SettingsController
     public function update(UpdateSettingsRequest $request): RedirectResponse
     {
         $group = (string) $request->validated('group');
+        $user = $request->user();
+
+        if (class_exists(PackageAccessService::class)
+            && ! app(PackageAccessService::class)->allowsSettingsGroup($user, $group)) {
+            abort(403, mca_sett('errors.group_forbidden'));
+        }
+
         $values = $request->validatedSettings();
 
-        $allowedKeys = collect($this->settings->forGroup($group))->pluck('key')->all();
+        $groupItems = $this->settings->forGroup($group);
+        $allowedKeys = collect($groupItems)->pluck('key')->all();
         $filtered = array_intersect_key($values, array_flip($allowedKeys));
 
         if (array_key_exists(SocialLinksField::KEY, $filtered)) {
@@ -55,7 +88,8 @@ class SettingsController
             $filtered[ContactEmailsField::KEY] = ContactEmailsField::normalize($filtered[ContactEmailsField::KEY]);
         }
 
-        $filtered = ImageUploadField::applyUploads($request, $filtered, $this->settings->forGroup($group));
+        $filtered = DatetimeField::normalizeGroup($filtered, $groupItems);
+        $filtered = ImageUploadField::applyUploads($request, $filtered, $groupItems);
 
         foreach ($filtered as $key => $value) {
             $definition = $this->settings->definitionFor((string) $key) ?? [];

@@ -34,7 +34,7 @@
             @foreach($groupList as $group)
                 <a href="{{ route($np.'index', ['group' => $group]) }}"
                    class="mca-ui-nav__link {{ $currentGroup === $group ? 'mca-ui-nav__link--active' : '' }}">
-                    {{ mca_sett('groups.'.$group) !== 'groups.'.$group ? mca_sett('groups.'.$group) : ucfirst($group) }}
+                    {{ \Mca\Settings\Support\McaSettingsView::groupLabel((string) $group) }}
                 </a>
             @endforeach
         </nav>

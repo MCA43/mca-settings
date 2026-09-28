@@ -99,6 +99,12 @@ class UpdateSettingsRequest extends FormRequest
                 continue;
             }
 
+            if ($widget === 'datetime') {
+                $rules[$ruleKey] = ['nullable', 'string', 'max:32'];
+
+                continue;
+            }
+
             $rules[$ruleKey] = match ($type) {
                 'boolean' => ['nullable', 'in:0,1'],
                 'integer' => ['nullable', 'integer'],

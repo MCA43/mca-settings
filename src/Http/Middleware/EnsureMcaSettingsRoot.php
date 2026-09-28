@@ -4,6 +4,7 @@ namespace Mca\Settings\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Mca\Permission\Services\PackageAccessService;
 use Mca\Permission\Services\PermissionService;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,6 +16,24 @@ class EnsureMcaSettingsRoot
 
         if ($user === null) {
             abort(403);
+        }
+
+        if (class_exists(PackageAccessService::class)) {
+            $packages = app(PackageAccessService::class);
+            $ability = $packages->abilityForRequest($request);
+
+            if ($packages->allows($user, 'settings', $ability)) {
+                if ($ability === 'manage') {
+                    $group = (string) $request->input('group', '');
+                    if ($group !== '' && ! $packages->allowsSettingsGroup($user, $group)) {
+                        abort(403, mca_sett('errors.group_forbidden'));
+                    }
+                }
+
+                return $next($request);
+            }
+
+            abort(403, mca_sett('errors.forbidden'));
         }
 
         if (config('settings.access.use_permission_root', true) && class_exists(PermissionService::class)) {

@@ -146,28 +146,65 @@
     color: #fff;
 }
 
-/* Bakım sayfası */
+/* Bakım sayfası (paket fallback) */
 .mca-sett-maint {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background:
+        radial-gradient(900px 480px at 0% 0%, rgba(251, 191, 36, 0.12), transparent 55%),
+        radial-gradient(800px 420px at 100% 10%, rgba(56, 189, 248, 0.08), transparent 50%),
+        var(--mca-ui-bg, #f4f6fb);
+}
+
+html[data-theme="dark"] .mca-sett-maint,
+[data-theme="dark"].mca-sett-maint {
+    --mca-ui-bg: #070b14;
+    --mca-ui-text: #e8eef7;
+    --mca-ui-muted: #94a3b8;
+    background:
+        radial-gradient(900px 480px at 0% 0%, rgba(251, 191, 36, 0.14), transparent 55%),
+        radial-gradient(800px 420px at 100% 10%, rgba(56, 189, 248, 0.1), transparent 50%),
+        #070b14;
+    color: #e8eef7;
 }
 
 .mca-sett-maint__wrap {
-    max-width: 32rem;
+    max-width: 36rem;
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 1.25rem;
+}
+
+.mca-sett-maint__brand {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--mca-ui-muted);
+}
+
+.mca-sett-maint__eyebrow {
+    margin: 0 0 0.65rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #d97706;
 }
 
 .mca-sett-maint__img {
-    max-width: 12rem;
-    margin: 0 auto 1rem;
+    display: block;
+    max-width: min(100%, 18rem);
+    margin: 0 auto 1.25rem;
+    border-radius: 1rem;
 }
 
 .mca-sett-maint__msg {
     color: var(--mca-ui-muted);
     margin: 1rem 0;
+    line-height: 1.6;
 }
 
 .mca-sett-maint__end {
@@ -298,17 +335,18 @@
     width: 2.25rem;
     height: 2.25rem;
     padding: 0;
-    border: 1px solid #fdba74;
+    border: 1px solid color-mix(in srgb, var(--mca-ui-danger) 40%, transparent);
     border-radius: var(--mca-ui-radius-sm);
-    background: #fff7ed;
-    color: #c2410c;
+    background: var(--mca-ui-danger-soft);
+    color: var(--mca-ui-danger);
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .mca-sett-repeater__remove:hover {
-    background: #ffedd5;
-    border-color: #fb923c;
+    background: color-mix(in srgb, var(--mca-ui-danger) 22%, transparent);
+    border-color: color-mix(in srgb, var(--mca-ui-danger) 55%, transparent);
+    color: var(--mca-ui-danger);
 }
 
 .mca-sett-repeater__hint {

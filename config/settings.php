@@ -35,6 +35,7 @@ return [
     'views' => [
         'namespace' => env('MCA_SETTINGS_VIEW_NAMESPACE', 'mca-settings'),
         'layout' => env('MCA_SETTINGS_VIEW_LAYOUT', 'mca-settings::layouts.app'),
+        'maintenance' => env('MCA_SETTINGS_MAINTENANCE_VIEW', 'mca-settings::maintenance.show'),
     ],
 
     'ui' => [
@@ -56,9 +57,13 @@ return [
     ],
 
     'middleware' => [
-        'register_maintenance' => env('MCA_SETTINGS_MAINTENANCE_MIDDLEWARE', false),
+        'register_maintenance' => env('MCA_SETTINGS_MAINTENANCE_MIDDLEWARE', true),
         // Stack’te kayıtlı olsun; davranış paneldeki security.force_https ile kontrol edilir (varsayılan kapalı).
         'register_force_https' => env('MCA_SETTINGS_FORCE_HTTPS_MIDDLEWARE', true),
+        'maintenance_except' => array_values(array_filter(array_map('trim', explode(',', (string) env(
+            'MCA_SETTINGS_MAINTENANCE_EXCEPT',
+            'mca,mca/*,panel,panel/*,login,logout,register,forgot-password,reset-password,reset-password/*,two-factor-challenge,giris,cikis,kayit,sifremi-unuttum,sifre-sifirla,sifre-sifirla/*,sifre-onayla,sifre-onay-durumu,iki-faktor,passkeys,passkeys/*,user,user/*,profil,sanctum/*,livewire/*,up'
+        ))))),
     ],
 
     /*

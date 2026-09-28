@@ -50,6 +50,14 @@ final class McaSettingsView
         return asset($path);
     }
 
+    public static function groupLabel(string $group): string
+    {
+        $key = 'groups.'.$group;
+        $translated = mca_sett($key);
+
+        return $translated !== $key ? $translated : ucfirst($group);
+    }
+
     public static function label(mixed $field, ?string $locale = null): string
     {
         $locale ??= McaSettingsLocale::resolve();
